@@ -1,0 +1,5 @@
+"custom/exit":{
+"format": "",
+"on-click": "wlogout",
+"tooltip": false
+ }
