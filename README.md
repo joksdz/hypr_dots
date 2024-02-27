@@ -10,4 +10,8 @@ for fonts : Roboto Mono Medium
 for themes (thunar) : vimix
 
 
+## i would like to change : htop => btop (bro its just better and cooler :))
+wofi => rofi (same reason as the one above )
+dolphin => thunar (dlphin is broken asf )
+systemd-booter => grub 
 
