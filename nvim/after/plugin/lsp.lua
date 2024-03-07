@@ -14,7 +14,7 @@ require('mason-lspconfig').setup({
 
 })
 
-lsp_zero.setup_servers({'lua_ls','tsserver', 'rust_analyzer'})
+lsp_zero.setup_servers({'lua_ls','tsserver', 'rust_analyzer', "clangd"})
 
 
 
