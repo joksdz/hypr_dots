@@ -2,33 +2,44 @@ window{
 	font-size:20px;
         font-family: "Roboto Mono Medium";
         
-        background-color: rgba(0, 0, 32, 0.84);
+        background-color: rgba(60, 47, 47, 0.6);
         color:white;
-	border-radius: 30px;
-	border:2px solid;
+	border-radius: 15px;
+	border:2px solid #e6b98e;
 
 }
 
 
 #entry:selected {
-      background-color: rgba(145, 0, 71, 0.65);
+      background-color: #e6b98e;
       margin-left:15px;
      
+}
+
+#entry{
+      
+	margin: 5px;
 }
 
 
 #text:selected{
 
 
-     color: #fb006e;
+     color: #3c2f2f;
+}
+#scroll{
+	margin: 5px;
 }
 #outer-box{
 padding:20px;
 }
 #input{
- background-color: rgba(145, 0, 71, 0.65);
-  
- border: 2px solid white;
+ background-color:  #3c2f2f;
+ border-radius: 30px;
+margin-bottom:20px;
+		margin-top:10px;
+box-shadow: 5 -5 10px 0 black;
+ border: 2px solid #e6b98e; ;
   color:white;
 }
 
