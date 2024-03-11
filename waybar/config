@@ -6,27 +6,27 @@
     // "width": 1280, // Waybar width
     "spacing": 9, // Gaps between modules (4px)
     // Choose the order of the modules
-    "modules-left": ["hyprland/mode", "hyprland/scratchpad", "custom/media"],
-    "modules-center": ["hyprland/window", "hyprland/workspaces"],
-    "modules-right": ["mpd", "idle_inhibitor", "pulseaudio", "network","custom/exit", "cpu", "memory", "temperature", "backlight", "keyboard-state", "hyprland/language", "battery", "battery#bat2", "clock" , "tray"],
+    "modules-left": ["hyprland/mode","hyprland/window","mpd", "hyprland/scratchpad", "custom/media"],
+    "modules-center": ["hyprland/workspaces"],
+    "modules-right": [ "pulseaudio", "network","custom/power", "cpu", "memory", "temperature", "backlight", "keyboard-state", "battery", "battery#bat2", "clock" , "tray"],
 	//mods load 
     // Modules configuration
-    // "hyprland/workspaces": {
-    //     "disable-scroll": true,
-    //     "all-outputs": true,
-    //     "warp-on-scroll": false,
-    //     "format": "{name}: {icon}",
-    //     "format-icons": {
-    //         "1": "",
-    //         "2": "",
-    //         "3": "",
-    //         "4": "",
-    //         "5": "",
-    //         "urgent": "",
-    //         "focused": "",
-    //         "default": ""
-    //     }
-    // },
+     "hyprland/workspaces": {
+         "disable-scroll": true,
+        "all-outputs": true,
+         "warp-on-scroll": false,
+         "format": "{name}: {icon}",
+         "format-icons": {
+             "1": "",
+             "2": "",
+             "3": "",
+             "4": "",
+             "5": "",
+             "urgent": "",
+             "focused": "",
+             "default": ""
+         }
+     },
     "keyboard-state": {
         "numlock": true,
         "capslock": true,
@@ -81,7 +81,7 @@
         }
     },
     "tray": {
-        // "icon-size":10,
+         "icon-size":10,
         "spacing": 10
     },
     "clock": {
@@ -94,7 +94,7 @@
         "tooltip": false
     },
     "memory": {
-        "format": "{}% "
+        "format": "ram:{}%"
     },
     "temperature": {
          "thermal-zone": 2,
@@ -162,10 +162,11 @@
             "spotify": "",
             "default": "🎜"
         },
-	"custom/exit": {
-	"format":"",
+	"custom/power": {
+	"format": "{}",
 	"on-click": "wlogout",
-	"tooltip": false
+	"interval": 86400,
+	"tooltip": true
 	},
 
         "escape": true,
