@@ -32,12 +32,27 @@ require("lazy").setup({
 
       configs.setup({
           ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "elixir", "heex", "javascript", "html","css","typescript","rust", },
+				autotag = {
+					enable = true
+				},
           sync_install = false,
           highlight = { enable = true },
           indent = { enable = true },
         })
     end
  },
+	-- autotag -- 
+	{'windwp/nvim-ts-autotag',
+		config = function()
+			require('nvim-ts-autotag').setup()
+		end},
+
+	--auto_pair--
+	{
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    config = true
+	},
 	--harpoon--
 {
     "ThePrimeagen/harpoon",
@@ -49,7 +64,6 @@ require("lazy").setup({
 
          {'williamboman/mason.nvim'},
   {'williamboman/mason-lspconfig.nvim'},
-
 
 
 	 -- LSP Support
