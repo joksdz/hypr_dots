@@ -3,19 +3,19 @@
 lobster_editor=${VISUAL:-${EDITOR:-nvim}}
 player=mpv
 download_dir="$PWD"
-provider="UpCloud"
-history=1
+provider="Vidcloud"
+history=0
 subs_language="english"
 histfile="$HOME/.local/share/lobster/lobster_history.txt"
 use_external_menu=0
 image_preview=1
 debug=0
 quiet_output=0
-preview_window_size=50%
-ueberzug_x=$(($(tput cols) - 68))
-ueberzug_y=$(($(tput lines) / 10))
-ueberzug_max_width=50
-ueberzug_max_height=50
+preview_window_size=40%
+ueberzug_x=$(($(tput cols) - 65))
+ueberzug_y=$(($(tput lines) / 41))
+ueberzug_max_width=100
+ueberzug_max_height=80
 
 download_video() {
   ffmpeg -loglevel error -stats -i "$1" -c copy "$3/$2".mp4
