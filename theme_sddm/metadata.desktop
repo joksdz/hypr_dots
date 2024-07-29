@@ -1,0 +1,14 @@
+[SddmGreeterTheme]
+Name=theme_sddm
+Description=theme_sddm
+Author=joksdz
+License=GPL-3.0-or-later
+Type=sddm-theme
+Version=1.0
+Website=https://github.com/joksdz/hypr_dots
+MainScript=Main.qml
+ConfigFile=theme.conf
+TranslationsDirectory=translations
+Theme-Id=theme_sddm
+Theme-API=2.0
+QtVersion=6
