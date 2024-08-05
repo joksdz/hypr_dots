@@ -1,7 +1,7 @@
 vim.o.number = true
 vim.o.relativenumber = true
 
-
+vim.cmd[[colorscheme tokyonight]]
 
 vim.o.hlsearch = false
 vim.o.incsearch=true

@@ -24,27 +24,47 @@ require("lazy").setup({
 	--telescope--
  {'nvim-telescope/telescope.nvim', tag = '0.1.5'},
  {
+  "folke/tokyonight.nvim",
+  lazy = false,
+  priority = 1000,
+  opts = {},
+},
+
+	{
 		--tree sitter--
  "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function ()
-      local configs = require("nvim-treesitter.configs")
+      local configs = require("nvim-treesitter")
 
       configs.setup({
           ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "elixir", "heex", "javascript", "html","css","typescript","rust", },
-				autotag = {
-					enable = true
-				},
           sync_install = false,
           highlight = { enable = true },
           indent = { enable = true },
         })
     end
  },
+
 	-- autotag -- 
 	{'windwp/nvim-ts-autotag',
 		config = function()
-			require('nvim-ts-autotag').setup()
+			require('nvim-ts-autotag').setup({
+  opts = {
+    -- Defaults
+    enable_close = true, -- Auto close tags
+    enable_rename = true, -- Auto rename pairs of tags
+    enable_close_on_slash = true -- Auto close on trailing </
+  },
+  -- Also override individual filetype configs, these take priority.
+  -- Empty by default, useful if one of the "opts" global settings
+  -- doesn't work well in a specific filetype
+  per_filetype = {
+    ["html"] = {
+      enable_close = false
+    }
+  }
+})
 		end},
 
 	--auto_pair--
@@ -79,6 +99,9 @@ require("lazy").setup({
       {'hrsh7th/cmp-nvim-lsp'},
     }
   },
+  'hrsh7th/cmp-nvim-lsp-signature-help',
+  'hrsh7th/cmp-buffer',
+  'hrsh7th/cmp-path',
   -- Autocompletion
   {
     'hrsh7th/nvim-cmp',
@@ -98,7 +121,10 @@ end
 
 
 	},
-	{
+	  {'prettier/vim-prettier',
+    run = 'yarn install --frozen-lockfile --production',
+    ft = {'javascript', 'typescript', 'css', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'}},
+{
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' }
 },
