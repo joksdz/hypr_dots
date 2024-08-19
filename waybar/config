@@ -6,9 +6,9 @@
     // "width": 1280, // Waybar width
     "spacing": 9, // Gaps between modules (4px)
     // Choose the order of the modules
-    "modules-left": ["hyprland/mode","hyprland/window","mpd", "hyprland/scratchpad", "custom/media"],
+    "modules-left": ["custom/arch","custom/power","custom/update","custom/weather","hyprland/mode","hyprland/window","mpd", "hyprland/scratchpad"],
     "modules-center": ["hyprland/workspaces"],
-    "modules-right": [ "pulseaudio", "network","custom/power", "cpu", "memory", "temperature", "backlight", "keyboard-state", "battery", "battery#bat2", "clock" , "tray"],
+    "modules-right": [ "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "keyboard-state", "battery", "battery#bat2", "clock" , "tray"],
 	//mods load 
     // Modules configuration
      "hyprland/workspaces": {
@@ -94,7 +94,7 @@
         "tooltip": false
     },
     "memory": {
-        "format": "ram:{}%"
+        "format": "RAM:{}%"
     },
     "temperature": {
          "thermal-zone": 2,
@@ -154,6 +154,27 @@
         },
         "on-click": "pavucontrol"
     },
+    "custom/weather": {
+    "format": "{}°",
+    "tooltip": true,
+    "interval": 3600,
+    "exec": "wttrbar --location alger",
+    "return-type": "json"
+},
+    "custom/arch": {
+        "format": " ",
+        "max-length": 40,
+	"on-click": "kitty btop",
+	"interval": 86400,
+	"tooltip": true
+
+               },
+    "custom/update": {
+	"format": " ",
+	"on-click": "kitty yay -Syu",
+	"interval": 86400,
+	"tooltip": true
+    },		       
     "custom/media": {
         "format": "{icon} {}",
         "return-type": "json",
@@ -161,9 +182,9 @@
         "format-icons": {
             "spotify": "",
             "default": "🎜"
-        },
-	"custom/power": {
-	"format": "{}",
+        }},
+    "custom/power": {
+	"format": " ",
 	"on-click": "wlogout",
 	"interval": 86400,
 	"tooltip": true
