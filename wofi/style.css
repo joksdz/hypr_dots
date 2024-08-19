@@ -2,16 +2,16 @@ window{
 	font-size:20px;
         font-family: "Roboto Mono Medium";
         
-        background-color: rgba(60, 47, 47, 0.6);
+        background-color: rgba(17,17,27, 0.8);
         color:white;
-	border-radius: 15px;
-	border:2px solid #e6b98e;
+	border-radius: 0px;
+	border:5px solid rgba(82,127,161,0.8) ;
 
 }
 
 
 #entry:selected {
-      background-color: #e6b98e;
+      background-color: rgba(82,127,161,0.8)  ;
       margin-left:15px;
      
 }
@@ -25,7 +25,7 @@ window{
 #text:selected{
 
 
-     color: #3c2f2f;
+     color: #fff;
 }
 #scroll{
 	margin: 5px;
@@ -34,12 +34,12 @@ window{
 padding:20px;
 }
 #input{
- background-color:  #3c2f2f;
+ background-color:rgba(17,17,27,0.5) ;
  border-radius: 30px;
 margin-bottom:20px;
-		margin-top:10px;
-box-shadow: 5 -5 10px 0 black;
- border: 2px solid #e6b98e; ;
+margin-top:10px;
+box-shadow: 5 -5 20px 0 rgba(82,127,161,0.6);
+ border: 2px solid rgba(82,127,161,0.8) ;
   color:white;
 }
 
