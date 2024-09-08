@@ -23,7 +23,9 @@ require("lazy").setup({
   end},
 	--telescope--
  {'nvim-telescope/telescope.nvim', tag = '0.1.5'},
+ --tokyonight--
  {
+
   "folke/tokyonight.nvim",
   lazy = false,
   priority = 1000,
