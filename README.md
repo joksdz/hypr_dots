@@ -9,6 +9,13 @@ if you would like to use it you can just download arch on your system with hyprl
 
 ![2024-08-19-094816_hyprshot](https://github.com/user-attachments/assets/d36db36e-0dea-4315-baf5-52eacfb661cd)
 
+
+
+https://github.com/user-attachments/assets/f0bbdf9c-1ef0-4254-8b41-aa92347f0081
+
+
+
+
 this porjects includes some other project of mine if you want to check it out : 
 https://github.com/joksdz/swww_wallpaper_switch
 
