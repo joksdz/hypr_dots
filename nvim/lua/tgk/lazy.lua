@@ -13,14 +13,6 @@ vim.opt.rtp:prepend(lazypath)
             --all plugs are here (except for the butt one :( --
 require("lazy").setup({
 'nvim-lua/plenary.nvim',
-	--which key 
- {
-  "folke/which-key.nvim",
-  event = "VeryLazy",
-  init = function()
-    vim.o.timeout = true
-    vim.o.timeoutlen = 300
-  end},
 	--telescope--
  {'nvim-telescope/telescope.nvim', tag = '0.1.5'},
  --tokyonight--

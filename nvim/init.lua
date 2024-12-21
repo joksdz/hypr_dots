@@ -37,7 +37,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- Activate LSPs
 -- All LSPs in this list need to be manually installed via NPM/PNPM/whatevs
 local lspconfig = require('lspconfig')
-local servers = { 'tailwindcss', 'tsserver', 'jsonls', 'eslint' }
+local servers = { 'tailwindcss', 'ts_ls', 'jsonls', 'eslint' }
 for _, lsp in pairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
