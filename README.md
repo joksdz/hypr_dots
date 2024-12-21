@@ -1,3 +1,5 @@
+# Warning ⚠️ 
+DO NOT USE THE INSTALL.SH , ITS BEING WORKED ON FOR THE MOMENT ,thx 
 # Hypr Dots 
 
 Hyprdots is a passion project made be me (ILoveCandy) using the arch linux distrobution based on hyprland and wayland with tons of cool functionalities that i like, i also used some pre-made repositories ( nvim, swww....)
