@@ -5,11 +5,8 @@ pacman -Syu
 cd .
 current=$(pwd)
 
-read -p "Enter your username: " user
-# check for ~/.config
-if  [ -e "/home/$user/.config" ]; then
-  
-  conf_f="/home/$user/.config"
+install() {
+	 conf_f="$HOME/.config"
   cd $conf_f
   
 #installing yay
@@ -25,7 +22,7 @@ rm -rf /usr/share/sddm/themes/sddm-astronaut-theme
 cp -r $current/theme_sddm /usr/share/sddm/themes
 
 echo "[Theme]
-Current=sddm-astronaut-theme" | sudo tee /etc/sddm.conf
+Current=theme_sddm" | sudo tee /etc/sddm.conf
 # copying files and makes them into an arry  
 ls > files.txt
   files=($(cat files.txt))
@@ -41,11 +38,17 @@ find $current \
     ! -name 'README.md' \
     ! -name 'LISENSE.txt' \
     ! -name 'install.sh' \
-    -exec cp --parents {} /home/$user/.config \;
+    -exec cp --parents {} $HOME/.config \;
 	done
 
-# if /.config doesn't exist ,make one and do the rest  
+
+}
+
+if  [ -e "$HOME/.config" ]; then
+	install
 else
-  
-	mkdir /home/$user/.config
+	mkdir -p "$HOME/.config"
+	install
 fi
+
+
