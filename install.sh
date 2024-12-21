@@ -22,7 +22,7 @@ yay -S swaylock kitty waybar wofi wlogout neovim thunar fish pulseaudio pipewire
 git clone https://github.com/keyitdev/sddm-astronaut-theme.git /usr/share/sddm/themes/sddm-astronaut-theme
 sudo cp /usr/share/sddm/themes/sddm-astronaut-theme/Fonts/* /usr/share/fonts/
 rm -rf /usr/share/sddm/themes/sddm-astronaut-theme
-cp -r /home/$user/.config/
+cp -r $current/theme_sddm /usr/share/sddm/themes
 
 echo "[Theme]
 Current=sddm-astronaut-theme" | sudo tee /etc/sddm.conf
@@ -36,18 +36,15 @@ ls > files.txt
 		rm -rf $i
 	fi
 	# copys the filles from the repo to the ~/.config
-rm -rf LICENSE README.md
+	#and exucludes some files
 find $current \
     ! -name 'README.md' \
     ! -name 'LISENSE.txt' \
     ! -name 'install.sh' \
     -exec cp --parents {} /home/$user/.config \;
-
-cp -r $current/* /home/$user/.config
-
 	done
 
-# if /.config doesn't make one and do the rest  
+# if /.config doesn't exist ,make one and do the rest  
 else
   
 	mkdir /home/$user/.config
