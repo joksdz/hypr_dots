@@ -15,7 +15,8 @@ if  [ -e "/home/$user/.config" ]; then
 #installing yay
   sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si
 # installing main packeges  
-yay -S swaylock kitty waybar wofi wlogout neovim thunar fish pulseaudio pipewire alsamixer nmtui speedtest-cli anime-cli mpv btop swww ffmpeg hyprshot sddm blueman firefox nwg-look qt6 qt6-svg bc
+yay -S swaylock kitty waybar wofi wlogout neovim thunar fish pulseaudio pipewire alsamixer nmtui speedtest-cli anime-cli mpv btop swww ffmpeg hyprshot sddm blueman firefox nwg-look qt6 qt6-svg bc ttf-roboto-mono ttf-nerd-fonts-symbols-mono ttf-roboto-mono-nerd
+
 
 # setup for sddm 
 git clone https://github.com/keyitdev/sddm-astronaut-theme.git /usr/share/sddm/themes/sddm-astronaut-theme
