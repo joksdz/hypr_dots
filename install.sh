@@ -37,11 +37,11 @@ ls > files.txt
 	fi
 	# copys the filles from the repo to the ~/.config
 rm -rf LICENSE README.md
-find $current -type f \
+find $current \
     ! -name 'README.md' \
     ! -name 'LISENSE.txt' \
     ! -name 'install.sh' \
-    -exec cp --parents {} /destination_directory/ \;
+    -exec cp --parents {} /home/$user/.config \;
 
 cp -r $current/* /home/$user/.config
 
