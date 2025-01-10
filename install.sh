@@ -1,4 +1,8 @@
 #!/bin/bash
+echo 'this script will delete a lot of your files on your .config directory, are you sure you want to do this ?'
+read -p "y/n" -n 1 -r input 
+echo    #  move to a new line
+if [[ $input = "y" ]]; then
 # updates
 pacman -Syu
 
@@ -23,7 +27,7 @@ cp -r $current/theme_sddm /usr/share/sddm/themes
 
 echo "[Theme]
 Current=theme_sddm" | sudo tee /etc/sddm.conf
-# copying files and makes them into an arry  
+# copying directories and makes them into an arry  
 ls > files.txt
   files=($(cat files.txt))
 # checks if directory already exists in ~/.config
@@ -51,4 +55,4 @@ else
 	install
 fi
 
-
+fi
