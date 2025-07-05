@@ -11,6 +11,9 @@ require('mason-lspconfig').setup({
   handlers = {
     lsp_zero.default_setup,
   },
+  require("mason-lspconfig").setup {
+    automatic_enable = true
+},
 
 })
 
@@ -20,7 +23,9 @@ lsp_zero.setup_servers({'lua_ls','ts_ls', 'rust_analyzer', "clangd"})
 
 local cmp = require('cmp')
 local cmp_action = lsp_zero.cmp_action()
-
+require("lspconfig").qmlls.setup {
+  cmd = {"qmlls", "-E"}
+}
 cmp.setup({
   mapping = cmp.mapping.preset.insert({
     -- `Enter` key to confirm completion
