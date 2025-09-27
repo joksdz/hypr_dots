@@ -1,7 +1,7 @@
 #!/bin/bash
-path="/home/mario/Downloads/wallpapers/"
-pos_path="/home/mario/testtest/Pos_num_gen.sh"
-p=$(bash $pos_path) #random position number
+path="$HOME/Downloads/wallpapers/"
+s=$((RANDOM % 99+1))
+p=$(echo "scale=2 ; $s / 100" |bc ) #random position number
 trans_types=("wipe" "grow" "center" "outer" "left" "right") #transition types from the swww doc
 ls $path > walls.txt #list of wallpapers
 walls=($(cat walls.txt)) #array of wallpapers
