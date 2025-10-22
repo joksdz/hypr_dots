@@ -1,21 +1,23 @@
 require("tgk")
--- LSP Mappings + Settings -----------------------------------------------------
--- modified from: https://github.com/neovim/nvim-lspconfig#suggested-configuration
-local opts = { noremap=true, silent=true }
--- Basic diagnostic mappings, these will navigate to or display diagnostics
+
+-- ─────────────────────────────────────────────────────────────
+-- 🔸 LSP Mappings + Settings
+-- ─────────────────────────────────────────────────────────────
+local opts = { noremap = true, silent = true }
+
+-- Diagnostic mappings
 vim.keymap.set('n', '<space>d', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
+-- ─────────────────────────────────────────────────────────────
+-- 🔸 on_attach: Set buffer-local mappings when LSP attaches
+-- ─────────────────────────────────────────────────────────────
 local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  -- Mappings to magical LSP functions!
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  local bufopts = { noremap = true, silent = true, buffer = bufnr }
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'gk', vim.lsp.buf.hover, bufopts)
@@ -28,32 +30,51 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
--- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
+-- ─────────────────────────────────────────────────────────────
+-- 🔸 Capabilities
+-- ─────────────────────────────────────────────────────────────
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
--- Capabilities required for the visualstudio lsps (css, html, etc)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
--- Activate LSPs
--- All LSPs in this list need to be manually installed via NPM/PNPM/whatevs
-local lspconfig = require('lspconfig')
-local servers = { 'tailwindcss', 'ts_ls', 'jsonls', 'eslint' }
-for _, lsp in pairs(servers) do
-  lspconfig[lsp].setup {
+-- ─────────────────────────────────────────────────────────────
+-- 🔸 Configure & Enable LSP servers
+-- ─────────────────────────────────────────────────────────────
+
+-- Lua LSP (special case)
+vim.lsp.config('lua_ls', {
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
+vim.lsp.enable('lua_ls')
+
+-- Common LSP servers
+local servers = {
+  'tailwindcss',
+  'ts_ls',
+  'jsonls',
+  'eslint',
+  'cssls',
+  'html',
+}
+
+for _, server in ipairs(servers) do
+  -- You can add per-server tweaks here if needed
+  vim.lsp.config(server, {
     on_attach = on_attach,
-    capabilites = capabilities,
-  }
+    capabilities = capabilities,
+  })
+  vim.lsp.enable(server)
 end
 
--- This is an interesting one, for some reason these two LSPs (CSS/HTML) need to
--- be activated separately outside of the above loop. If someone can tell me why,
--- send me a note...
-lspconfig.cssls.setup {
+-- Example: extra settings for ts_ls (JSX)
+vim.lsp.config('ts_ls', vim.tbl_deep_extend('force', {
   on_attach = on_attach,
-  capabilities = capabilities
-}
+  capabilities = capabilities,
+}, {
+  settings = {
+    typescript = { jsxEnabled = true },
+    javascript = { jsxEnabled = true },
+  }
+}))
+vim.lsp.enable('ts_ls')
 
-lspconfig.html.setup {
-  on_attach = on_attach,
-  capabilities = capabilities
-}

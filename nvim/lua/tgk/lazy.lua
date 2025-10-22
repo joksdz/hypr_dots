@@ -22,26 +22,34 @@ require("lazy").setup({
   lazy = false,
   priority = 1000,
   opts = {},
+  config = function()
+    vim.cmd.colorscheme("tokyonight")
+    end,
 },
 
 	{
 		--tree sitter--
- "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = function ()
-      local configs = require("nvim-treesitter")
 
-      configs.setup({
-          ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "elixir", "heex", "javascript", "html","css","typescript","rust", },
-          sync_install = false,
-          highlight = { enable = true },
-          indent = { enable = true },
-        })
-    end
+  "nvim-treesitter/nvim-treesitter",
+  build = ":TSUpdate",
+  config = function()
+    require("nvim-treesitter.configs").setup({
+      ensure_installed = {
+        "lua", "vim", "vimdoc", "query",
+        "javascript", "typescript", "tsx",
+        "html", "css", "json","c","cpp","python","rust"},
+      highlight = { enable = true },
+      indent = { enable = true },
+    })
+  end,
+
+
  },
 
 	-- autotag -- 
 	{'windwp/nvim-ts-autotag',
+		event = "VeryLazy",
+		dependencies = "nvim-treesitter/nvim-treesitter",
 		config = function()
 			require('nvim-ts-autotag').setup({
   opts = {
@@ -97,12 +105,58 @@ require("lazy").setup({
   'hrsh7th/cmp-buffer',
   'hrsh7th/cmp-path',
   -- Autocompletion
-  {
-    'hrsh7th/nvim-cmp',
-    dependencies = {
-      {'L3MON4D3/LuaSnip'}
-    },
+{
+  "hrsh7th/nvim-cmp",
+  dependencies = {
+    "L3MON4D3/LuaSnip",          -- snippet engine
+    "saadparwaiz1/cmp_luasnip",  -- bridge between cmp and luasnip
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-path",
+    "hrsh7th/cmp-nvim-lsp-signature-help",
   },
+  config = function()
+    local cmp = require("cmp")
+    local luasnip = require("luasnip")
+
+    cmp.setup({
+      snippet = {
+        expand = function(args)
+          luasnip.lsp_expand(args.body)
+        end,
+      },
+      mapping = cmp.mapping.preset.insert({
+        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        ["<Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_next_item()
+          elseif luasnip.expand_or_jumpable() then
+            luasnip.expand_or_jump()
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item()
+          elseif luasnip.jumpable(-1) then
+            luasnip.jump(-1)
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+      }),
+      sources = cmp.config.sources({
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
+        { name = "buffer" },
+        { name = "path" },
+        { name = "nvim_lsp_signature_help" },
+      }),
+    })
+  end,
+},
+
 	--codeuim for auto completion--
 	{
 		'Exafunction/codeium.vim',
@@ -116,12 +170,15 @@ end
 
 	},
 	  {'prettier/vim-prettier',
-    run = 'yarn install --frozen-lockfile --production',
+    run = 'pnpm install --frozen-lockfile --production',
     ft = {'javascript', 'typescript', 'css', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'}},
 {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' }
 },
+--formater 
+{"stevearc/conform.nvim"},
+
 -- trouble --
 {
   "folke/trouble.nvim",

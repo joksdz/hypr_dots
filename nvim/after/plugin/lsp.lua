@@ -1,43 +1,71 @@
-local lsp_zero = require('lsp-zero')
+-- Mason (server installer)
+require('mason').setup()
 
-lsp_zero.on_attach(function(client, bufnr)
-  -- see :help lsp-zero-keybindings
-  -- to learn the available actions
-  lsp_zero.default_keymaps({buffer = bufnr})
-end)
-
-require('mason').setup({})
+-- Mason LSP bridge
 require('mason-lspconfig').setup({
-  handlers = {
-    lsp_zero.default_setup,
+  ensure_installed = {
+    "lua_ls",
+    "ts_ls",
+    "eslint",
+    "jsonls",
+    "tailwindcss",
+    "html",
+    "cssls",
   },
-  require("mason-lspconfig").setup {
-    automatic_enable = true
-},
-
+  automatic_installation = true,
 })
 
-lsp_zero.setup_servers({'lua_ls','ts_ls', 'rust_analyzer', "clangd"})
+-- Diagnostics keymaps
+local opts = { noremap = true, silent = true }
+vim.keymap.set('n', '<space>d', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
+-- On attach mappings
+local on_attach = function(_, bufnr)
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', 'gk', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
+end
 
+-- Capabilities for nvim-cmp
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+-- Register LSP servers using the new API
+local servers = { "lua_ls", "ts_ls", "eslint", "jsonls", "tailwindcss", "html", "cssls" }
+
+for _, server in ipairs(servers) do
+  vim.lsp.config(server, {
+    capabilities = capabilities,
+    on_attach = on_attach,
+  })
+  vim.lsp.enable(server)
+end
+
+-- nvim-cmp setup
 local cmp = require('cmp')
-local cmp_action = lsp_zero.cmp_action()
-require("lspconfig").qmlls.setup {
-  cmd = {"qmlls", "-E"}
-}
 cmp.setup({
+  snippet = {
+expand = function(args)
+  require("luasnip").lsp_expand(args.body)
+end,
+
+     },
   mapping = cmp.mapping.preset.insert({
-    -- `Enter` key to confirm completion
-    ['<CR>'] = cmp.mapping.confirm({select = false}),
-    -- Ctrl+Space to trigger completion menu
+    ['<CR>'] = cmp.mapping.confirm({ select = false }),
     ['<C-Space>'] = cmp.mapping.complete(),
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'buffer' },
+  }),
+})
 
-    -- Navigate between snippet placeholder
-    ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-    ['<C-b>'] = cmp_action.luasnip_jump_backward(),
-
-    -- Scroll up and down in the completion documentation
-    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-d>'] = cmp.mapping.scroll_docs(4),
-  })})
