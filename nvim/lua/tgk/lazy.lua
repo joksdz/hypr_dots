@@ -68,6 +68,13 @@ require("lazy").setup({
   }
 })
 		end},
+--discord--
+
+	{
+  'vyfor/cord.nvim',
+  build = ':Cord update',
+  -- opts = {}
+},
 
 	--auto_pair--
 	{
